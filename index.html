@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperer une Api </title>
+    <style>
+        .image{
+            display:flex;
+            flex-wrap: wrap;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="api">Mes Photos</h1>
+    <div id="photoList" class="image"></div>
+    <script>
+       const  photoListe = document.getElementById('photoList');
+       fetch('https://jsonplaceholder.typicode.com/photos')
+       .then(resp => {
+        return resp.json();
+       })
+       .then(data => {
+        data.forEach(photo => {
+          var photoCard = document.createElement('div');
+          photoCard.className = 'photo-card';
+
+          var image = document.createElement('img');
+          image.style.width = '200px';
+          image.src = photo.url;
+          image.alt = photo.title;
+
+          var title = document.createElement('p');
+          title.style.width = '200px';
+          title.textContent = photo.title;
+
+          photoCard.appendChild(image);
+          photoCard.appendChild(title);
+          photoListe.appendChild(photoCard);
+        });
+       })
+    </script>
+
+</body>
+</html>
